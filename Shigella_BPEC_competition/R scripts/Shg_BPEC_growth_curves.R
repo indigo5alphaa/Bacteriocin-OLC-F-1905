@@ -18,6 +18,10 @@ logCFU_Growth_Curve <- Growth_Curve_0_20h_Clean %>%
          logCFU_AVG = as.numeric(logCFU_AVG),
          logCFU_SD = as.numeric(logCFU_SD))
 
+
+# separate logCFU data by BPEC strains ------------------------------------
+
+
 library(dplyr)
 
 logCFU_0637 <- filter(logCFU_Growth_Curve, EC_ID %in% c('OLC1614', 'OLC0637'))
@@ -25,11 +29,15 @@ logCFU_1512 <- filter(logCFU_Growth_Curve, EC_ID %in% c('OLC1614', 'OLC1512'))
 logCFU_3094 <- filter(logCFU_Growth_Curve, EC_ID %in% c('OLC1614', 'OLC3094'))
 logCFU_3095 <- filter(logCFU_Growth_Curve, EC_ID %in% c('OLC1614', 'OLC3095'))
 
+
+# ggplot graphs -----------------------------------------------------------
+
+
 library(ggplot2)
 
 OLC0637 <- ggplot(logCFU_0637,aes(x = Incubation_Time, y = logCFU_AVG,
-                       shape = EC_Description,
-                       color = Count_Target)) +
+                                  shape = EC_Description,
+                                  color = Count_Target)) +
   geom_point(size = 2) +
   geom_line(aes(linetype = EC_Description)) +
   geom_errorbar(aes(ymin = logCFU_AVG - logCFU_SD,
@@ -38,6 +46,7 @@ OLC0637 <- ggplot(logCFU_0637,aes(x = Incubation_Time, y = logCFU_AVG,
                 width = 0.25) +
   labs(x = "Incubation Time (h)", y = "log CFU/mL") +
   scale_x_continuous(breaks = c(0,1,2,3,4,5,6,7,20)) +
+  ylim(5,9.5) +
   theme(legend.position = "right",
         plot.title = element_text(size = 9, face = 'bold', color = 'black'),
         axis.text = element_text(size = 10),
@@ -60,6 +69,7 @@ OLC1512 <- ggplot(logCFU_1512,aes(x = Incubation_Time, y = logCFU_AVG,
                 width = 0.25) +
   labs(x = "Incubation Time (h)", y = "log CFU/mL") +
   scale_x_continuous(breaks = c(0,1,2,3,4,5,6,7,20)) +
+  ylim(5,9.5) +
   theme(legend.position = "right",
         plot.title = element_text(size = 9, face = 'bold', color = 'black'),
         axis.text = element_text(size = 10),
@@ -82,6 +92,7 @@ OLC3094 <- ggplot(logCFU_3094,aes(x = Incubation_Time, y = logCFU_AVG,
                 width = 0.25) +
   labs(x = "Incubation Time (h)", y = "log CFU/mL") +
   scale_x_continuous(breaks = c(0,1,2,3,4,5,6,7,20)) +
+  ylim(5,9.5) +
   theme(legend.position = "right",
         plot.title = element_text(size = 9, face = 'bold', color = 'black'),
         axis.text = element_text(size = 10),
@@ -104,6 +115,7 @@ OLC3095 <- ggplot(logCFU_3095,aes(x = Incubation_Time, y = logCFU_AVG,
                 width = 0.25) +
   labs(x = "Incubation Time (h)", y = "log CFU/mL") +
   scale_x_continuous(breaks = c(0,1,2,3,4,5,6,7,20)) +
+  ylim(5,9.5) +
   theme(legend.position = "right",
         plot.title = element_text(size = 9, face = 'bold', color = 'black'),
         axis.text = element_text(size = 10),
@@ -121,7 +133,3 @@ ggarrange(OLC0637, OLC1512, OLC3094, OLC3095,
           labels = 'AUTO',
           ncol = 2,
           nrow = 2)
-
-
-
-
