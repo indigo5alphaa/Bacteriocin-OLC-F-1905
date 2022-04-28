@@ -129,7 +129,7 @@ OLC3095 <- ggplot(logCFU_3095,aes(x = Incubation_Time, y = logCFU_AVG,
 
 library(ggpubr)
 
-ggarrange(OLC0637, OLC1512, OLC3094, OLC3095,
+ggarrange(OLC0637, OLC3095, OLC1512, OLC3094, 
           labels = 'AUTO',
           ncol = 2,
           nrow = 2)
